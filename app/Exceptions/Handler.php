@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -13,7 +14,6 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
     ];
 
     /**
@@ -35,7 +35,13 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            if ( $e instanceof HttpException ) {
+                return response()->json('Vaya vaya');
+            }
+        });
+
+        $this->reportable(function (InvalidRequestException $e) {
+            return response()->json('vayyyyyy');
         });
     }
 }

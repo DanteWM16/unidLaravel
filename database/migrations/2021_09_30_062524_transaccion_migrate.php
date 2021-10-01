@@ -20,7 +20,6 @@ class TransaccionMigrate extends Migration
             $table->foreignId('producto_id')->constrained();
             $table->timestamps();
 
-
         });
     }
 
